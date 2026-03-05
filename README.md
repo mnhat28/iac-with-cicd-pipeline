@@ -64,6 +64,8 @@ Automatic rollback strategy
                             │
                             ▼
                          Internet
+
+                         
 ☸️ K3s Cluster Topology
                 K3s Cluster
           ┌─────────────────────┐
