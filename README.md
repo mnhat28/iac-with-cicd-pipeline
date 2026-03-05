@@ -43,8 +43,8 @@ GitHub Actions Runner
    │
    ┌─────────┴─────────┐
    │                   │
-   │  Build Docker    │
-   │      Image       │
+   │  Build Docker     │
+   │      Image        │
    │                   │
    ▼                   ▼
 Docker Image       Push Image
@@ -72,20 +72,30 @@ Docker Image       Push Image
 
                          
 ☸️ K3s Cluster Topology
+## ☸️ K3s Cluster Topology
+
+```text
                 K3s Cluster
-          ┌─────────────────────┐
-          │     Master Node     │
-          │                     │
-          │  kube-apiserver     │
-          │  scheduler          │
-          │  controller-manager │
-          └─────────┬───────────┘
-                    │
-        ┌───────────┴───────────┐
-        │                       │
-   Worker Node 1           Worker Node 2
-        │                       │
-     Pod: myapp              Pod: myapp
+           ┌─────────────────────┐
+           │      Master Node    │
+           │                     │
+           │  kube-apiserver     │
+           │  scheduler          │
+           │  controller-manager │
+           └─────────┬───────────┘
+                     │
+        ┌────────────┴────────────┐
+        │                         │
+   ┌─────────────┐          ┌─────────────┐
+   │ Worker Node │          │ Worker Node │
+   │      1      │          │      2      │
+   └──────┬──────┘          └──────┬──────┘
+          │                        │
+     ┌────▼────┐              ┌────▼────┐
+     │   Pod   │              │   Pod   │
+     │  myapp  │              │  myapp  │
+     └─────────┘              └─────────┘
+```
 
 Each deployment creates 2 pods for high availability.
 
