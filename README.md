@@ -252,19 +252,19 @@ Deploy to Kubernetes
 
 
 🎯 Key Features
-Infrastructure as Code using Terraform
-Automated Kubernetes cluster provisioning
-CI/CD pipeline with GitHub Actions
-Docker image build & push
-Automated Kubernetes deployment
-Automatic rollback mechanism
-Load-balanced application with multiple replicas
+- Infrastructure as Code using Terraform
+- Automated Kubernetes cluster provisioning
+- CI/CD pipeline with GitHub Actions
+- Docker image build & push
+- Automated Kubernetes deployment
+- Automatic rollback mechanism
+- Load-balanced application with multiple replicas
 
 
 📚 Learning Objectives
-This project demonstrates:
-Kubernetes cluster deployment
-Infrastructure automation
-CI/CD pipeline implementation
-Containerized application deployment
-DevOps workflow integration
+- This project demonstrates:
+- Kubernetes cluster deployment
+- Infrastructure automation
+- CI/CD pipeline implementation
+- Containerized application deployment
+- DevOps workflow integration
