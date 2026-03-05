@@ -1,36 +1,26 @@
-MyApp – Automated CI/CD Deployment to K3s Cluster
+🚀 Automated K3s Deployment with Terraform & CI/CD
+This project demonstrates a fully automated DevOps workflow that provisions a Kubernetes cluster and deploys an application using CI/CD.
+The system automatically:
+1. Provisions a K3s Kubernetes cluster using Terraform
+2. Builds a Docker image when code is pushed to GitHub
+3. Pushes the image to Docker Hub
+4. Deploys the application to a K3s cluster through GitHub Actions
+5. Automatically performs rollback if deployment fails
+This project demonstrates Infrastructure as Code (IaC), Containerization, and CI/CD automation.
 
 
+🧱 Technologies Used
+Terraform
+K3s
+Docker
+Kubernetes
+GitHub Actions
+Docker Hub
+Node.js + Express
 
 
-
-
-
-
-
-
-
-
-A cloud-native demo application showing how to build a complete CI/CD pipeline that automatically deploys a Node.js application to a K3s Kubernetes cluster.
-
-This project demonstrates modern DevOps practices, including:
-
-Infrastructure automation
-
-Containerization
-
-Continuous Integration
-
-Continuous Deployment
-
-Kubernetes orchestration
-
-Automatic rollback strategy
-
-🏗 Architecture Overview
-## 🏗 Architecture Overview
-
-```text
+🏗 System Architecture
+```
 Developer
    │
    │ git push
@@ -41,221 +31,240 @@ GitHub Repository
 GitHub Actions Runner
 (Self-hosted)
    │
-   ┌─────────┴─────────┐
-   │                   │
-   │  Build Docker     │
-   │      Image        │
-   │                   │
-   ▼                   ▼
-Docker Image       Push Image
-  (Build)        → Docker Hub
+   ├── Build Docker Image
+   │
+   └── Push Image → Docker Hub
                       │
                       ▼
-               SSH to K3s Master
+                SSH to K3s Master
                       │
                       ▼
                Kubernetes Cluster
                ┌──────────────┐
-               │  Deployment  │
-               │  2 Replicas  │
+               │ Deployment   │
+               │ 2 Replicas   │
                └──────┬───────┘
                       │
-               Kubernetes Service
+              Kubernetes Service
                       │
                       ▼
-                   NodePort
-                  Port 30080
+                  NodePort
+                 Port 30080
                       │
                       ▼
                    Internet
 ```
 
-                         
-☸️ K3s Cluster Topology
-## ☸️ K3s Cluster Topology
 
-```text
+☸️ K3s Cluster Topology
+```
                 K3s Cluster
-           ┌─────────────────────┐
-           │      Master Node    │
-           │                     │
-           │  kube-apiserver     │
-           │  scheduler          │
-           │  controller-manager │
-           └─────────┬───────────┘
-                     │
-        ┌────────────┴────────────┐
-        │                         │
-   ┌─────────────┐          ┌─────────────┐
-   │ Worker Node │          │ Worker Node │
-   │      1      │          │      2      │
-   └──────┬──────┘          └──────┬──────┘
-          │                        │
-     ┌────▼────┐              ┌────▼────┐
-     │   Pod   │              │   Pod   │
-     │  myapp  │              │  myapp  │
-     └─────────┘              └─────────┘
+
+          ┌─────────────────────┐
+          │     Master Node     │
+          │---------------------│
+          │ kube-apiserver      │
+          │ scheduler           │
+          │ controller-manager  │
+          └─────────┬───────────┘
+                    │
+        ┌───────────┴───────────┐
+        │                       │
+   Worker Node 1           Worker Node 2
+        │                       │
+     Pod: myapp              Pod: myapp
 ```
 
-Each deployment creates 2 pods for high availability.
 
-🔁 CI/CD Pipeline
-
-The CI/CD pipeline is implemented using GitHub Actions.
-
-Trigger:
-
-Push to main branch
-
-Pipeline workflow:
-
-1. Checkout repository
-2. Login to Docker Hub
-3. Build Docker Image
-4. Push Image to DockerHub
-5. SSH to K3s Master Node
-6. Update Kubernetes Deployment
-7. Apply Deployment
-8. Monitor Rollout
-9. Auto Rollback if Failed
-🔄 Automatic Rollback Strategy
-
-If a deployment fails during rollout:
-
-kubectl rollout status deployment/myapp
-
-The pipeline automatically executes:
-
-kubectl rollout undo deployment/myapp
-
-This ensures:
-
-✔ Zero broken deployments
-✔ Reliable production updates
-✔ Safe continuous delivery
-
-🐳 Docker
-
-The application is containerized using Docker.
-
-Build Image
-docker build -t myapp .
-Run Container
-docker run -p 80:80 myapp
-☸️ Kubernetes Deployment
-
-The application is deployed using a Kubernetes Deployment.
-
-replicas: 2
-
-Benefits:
-
-High availability
-
-Load balancing
-
-Self-healing pods
-
-🌐 Kubernetes Service
-
-The service exposes the application using NodePort.
-
-type: NodePort
-nodePort: 30080
-
-Access the application:
-
-http://<NODE_IP>:30080
-🖥 Application Features
-
-The Node.js application displays runtime information:
-
-Pod Hostname
-
-Node IP Address
-
-Server Uptime
-
-Service Port
-
-This helps demonstrate Kubernetes load balancing when refreshing the page.
-
-Example output:
-
-Node IP: 10.42.0.5
-Hostname: myapp-7c9fdbb8b9-x2g7p
-Port: 80
-Uptime: 30s
 📂 Project Structure
-myapp
+```
+project
+│
+├── terraform
+│   ├── main.tf
+│   ├── variables.tf
+│   └── outputs.tf   
+│
+├── k8s
+│   ├── deployment.yaml
+│   ├── service.yaml
+│   └── ingress.yaml
 │
 ├── .github
 │   └── workflows
-│       └── main.yml        # CI/CD pipeline
+│       └── main.yml
 │
-├── Dockerfile              # Container build config
-├── package.json            # NodeJS dependencies
-├── server1.js              # Express application
-│
-├── deployment.yaml         # Kubernetes Deployment
-├── service.yaml            # Kubernetes Service
-├── ingress.yaml            # Kubernetes Ingress
+├── Dockerfile
+├── package.json
+├── server1.js
 │
 └── README.md
-🔐 GitHub Secrets
+```
 
-The CI/CD pipeline requires these secrets:
 
-Secret	Purpose
-DOCKERHUB_USERNAME	DockerHub login
-DOCKERHUB_TOKEN	DockerHub access token
-MASTER_HOST	K3s master IP
-MASTER_USER	SSH username
-MASTER_SSH_KEY	SSH private key
-📊 DevOps Features
+⚙️ Infrastructure Provisioning (Terraform)
+The Kubernetes cluster is automatically provisioned using Terraform with the SSH provider.
+Terraform performs the following tasks:
+```
+Terraform Apply
+       │
+       ▼
+Connect to Master Node via SSH
+       │
+       ▼
+Install K3s Server
+       │
+       ▼
+Generate Node Token
+       │
+       ▼
+Retrieve Token
+       │
+       ▼
+Connect to Worker Node
+       │
+       ▼
+Install K3s Agent
+       │
+       ▼
+Worker joins cluster
+```
+After provisioning:
+```
+kubectl get nodes
+```
+Expected output
+```
+NAME       STATUS   ROLES                  AGE
+master     Ready    control-plane,master   2m
+worker1    Ready    <none>                 1m
+```
+⚙️ CI/CD Pipeline
+The CI/CD pipeline is implemented using GitHub Actions.
+Pipeline workflow:
+```
+Code Push
+   │
+   ▼
+GitHub Actions Trigger
+   │
+   ▼
+Build Docker Image
+   │
+   ▼
+Push Image to Docker Hub
+   │
+   ▼
+SSH into K3s Master
+   │
+   ▼
+Update Kubernetes Deployment
+   │
+   ▼
+Rolling Update
+   │
+   ├── Success → Deployment completed
+   │
+   └── Failure → Automatic Rollback
+```
 
-✔ Infrastructure as Code (Terraform)
-✔ Containerized application
-✔ Automated CI/CD pipeline
-✔ Kubernetes orchestration
-✔ Automatic rollback
-✔ Multi-pod deployment
-✔ Load balancing demonstration
 
-🧪 Demo
+📦 Docker Image Build
+Application container is built using:
+```
+FROM node:18
 
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+EXPOSE 80
+
+CMD ["node", "server1.js"]
+```
+
+
+☸️ Kubernetes Deployment
+Application runs with:
+2 replicas
+NodePort service
+accessible from external network
+Deployment:
+```
+replicas: 2
+```
+Service:
+```
+type: NodePort
+nodePort: 30080
+```
+
+
+🌐 Access the Application
 After deployment:
-
-http://<NODE_IP>:30080
-
-You will see a dynamic landing page showing:
-
+```
+http://NODE_IP:30080
+```
+The application will display:
+Hostname of the pod
 Node IP
+Runtime information
+This helps visualize load balancing across pods.
 
-Pod hostname
 
-Uptime
+🔁 Automatic Rollback
+The CI/CD pipeline automatically rolls back if deployment fails.
+```
+Rollout failure
+      │
+      ▼
+kubectl rollout undo deployment/myapp
+      │
+      ▼
+Restore previous stable version
+```
+This ensures high availability and safe deployments.
 
-Interactive UI
 
-Refreshing the page may return different pods, demonstrating Kubernetes load balancing.
+🚀 How to Run
+1️⃣ Provision the cluster
+```
+terraform init
+terraform apply
+```
 
-🎓 Academic Context
 
-Course: Distributed Computing Systems
-Class: NT533.Q13
+2️⃣ Deploy application via CI/CD
+Push code to GitHub
+```
+git push origin main
+```
+GitHub Actions will automatically:
+```
+Build Image
+Push Image
+Deploy to Kubernetes
+```
 
-Project Topic:
 
-Infrastructure as Code & CI/CD Deployment
-on a K3s Kubernetes Cluster
+🎯 Key Features
+Infrastructure as Code using Terraform
+Automated Kubernetes cluster provisioning
+CI/CD pipeline with GitHub Actions
+Docker image build & push
+Automated Kubernetes deployment
+Automatic rollback mechanism
+Load-balanced application with multiple replicas
 
-Team Members:
 
-Trần Minh Nhật
-
-Huỳnh Lâm Tuấn Phong
-
-📜 License
-
-This project is developed for educational and demonstration purposes.
+📚 Learning Objectives
+This project demonstrates:
+Kubernetes cluster deployment
+Infrastructure automation
+CI/CD pipeline implementation
+Containerized application deployment
+DevOps workflow integration
