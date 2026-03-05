@@ -28,42 +28,47 @@ Kubernetes orchestration
 Automatic rollback strategy
 
 🏗 Architecture Overview
-               Developer
-                   │
-                   │ git push
-                   ▼
-            GitHub Repository
-                   │
-                   ▼
-           GitHub Actions Runner
-           (Self-hosted)
-                   │
-         ┌─────────┴─────────┐
-         │                   │
-         │ Build Docker Image│
-         │                   │
-         ▼                   ▼
-     Docker Image      Push Image
-       (Build)        → Docker Hub
-                             │
-                             ▼
-                    SSH to K3s Master
-                             │
-                             ▼
-                     Kubernetes Cluster
-                     ┌──────────────┐
-                     │ Deployment   │
-                     │ 2 Replicas   │
-                     └──────┬───────┘
-                            │
-                     Kubernetes Service
-                            │
-                            ▼
-                        NodePort
-                      Port 30080
-                            │
-                            ▼
-                         Internet
+## 🏗 Architecture Overview
+
+```text
+Developer
+   │
+   │ git push
+   ▼
+GitHub Repository
+   │
+   ▼
+GitHub Actions Runner
+(Self-hosted)
+   │
+   ┌─────────┴─────────┐
+   │                   │
+   │  Build Docker    │
+   │      Image       │
+   │                   │
+   ▼                   ▼
+Docker Image       Push Image
+  (Build)        → Docker Hub
+                      │
+                      ▼
+               SSH to K3s Master
+                      │
+                      ▼
+               Kubernetes Cluster
+               ┌──────────────┐
+               │  Deployment  │
+               │  2 Replicas  │
+               └──────┬───────┘
+                      │
+               Kubernetes Service
+                      │
+                      ▼
+                   NodePort
+                  Port 30080
+                      │
+                      ▼
+                   Internet
+```
 
                          
 ☸️ K3s Cluster Topology
