@@ -188,7 +188,7 @@ CMD ["node", "server1.js"]
 ```
 
 
-☸️ Kubernetes Deployment
+Kubernetes Deployment
 Application runs with:
 2 replicas
 NodePort service
