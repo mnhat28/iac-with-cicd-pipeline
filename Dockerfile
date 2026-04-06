@@ -1,21 +1,20 @@
-# Sử dụng Node.js phiên bản ổn định
+# Use a stable Node.js version
 FROM node:18
 
-# Tạo thư mục làm việc bên trong container
+# Create a working directory inside the container
 WORKDIR /usr/src/app
 
-# Copy file package.json trước để cài dependency
+# Copy package.json first to install dependencies
 COPY package*.json ./
 
-# Cài dependency
+# Install dependencies
 RUN npm install
 
-# Copy toàn bộ source code vào container
+# Copy all source code into the container
 COPY . .
 
-# Container sẽ chạy trên port 80
+# The container will run on port 80
 EXPOSE 80
 
-# Lệnh chạy ứng dụng
+# Command to run the application
 CMD ["node", "server1.js"]
-
