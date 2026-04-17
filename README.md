@@ -55,9 +55,6 @@ GitHub Actions Runner
                       ▼
                   NodePort
                  Port 30080
-                      │
-                      ▼
-                   Internet
 ```
 
 
