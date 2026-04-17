@@ -1,25 +1,30 @@
-Automated K3s Deployment with Terraform & CI/CD
-This project demonstrates a fully automated DevOps workflow that provisions a Kubernetes cluster and deploys an application using CI/CD.
-The system automatically:
-1. Provisions a K3s Kubernetes cluster using Terraform
-2. Builds a Docker image when code is pushed to GitHub
-3. Pushes the image to Docker Hub
-4. Deploys the application to a K3s cluster through GitHub Actions
-5. Automatically performs rollback if deployment fails
-This project demonstrates Infrastructure as Code (IaC), Containerization, and CI/CD automation.
+# 🚀 MyApp - IaC & CI/CD with K3s Cluster
+
+## 📌 Overview
+
+This project demonstrates a fully automated application deployment system using modern **DevOps** and **Cloud Native** technologies.
+
+It integrates multiple components into a complete pipeline, including:
+
+- **Infrastructure as Code (IaC)** using Terraform  
+- **Containerization** using Docker  
+- **Container Orchestration** using K3s (Lightweight Kubernetes)  
+- **CI/CD Pipeline** using GitHub Actions  
+- **Backend Application** built with Node.js (Express)
+
+### 🎯 Objectives
+
+- Automate infrastructure provisioning using Terraform  
+- Build a complete **CI/CD pipeline** (Build → Push → Deploy)  
+- Deploy applications automatically to a **K3s cluster**  
+- Implement **automatic rollback** when deployment fails  
+- Demonstrate a **distributed system** using multiple pods and load balancing  
+
+---
 
 
-Technologies Used
-Terraform
-K3s
-Docker
-Kubernetes
-GitHub Actions
-Docker Hub
-Node.js + Express
+## 🏗️ System Architecture
 
-
-System Architecture
 ```
 Developer
    │
@@ -56,7 +61,11 @@ GitHub Actions Runner
 ```
 
 
-K3s Cluster Topology
+
+---
+
+## ☸️ K3s Cluster Topology
+
 ```
                 K3s Cluster
 
@@ -76,7 +85,11 @@ K3s Cluster Topology
 ```
 
 
-Project Structure
+
+---
+
+## 📁 Project Structure
+
 ```
 project
 │
@@ -102,9 +115,15 @@ project
 ```
 
 
-Infrastructure Provisioning (Terraform)
-The Kubernetes cluster is automatically provisioned using Terraform with the SSH provider.
-Terraform performs the following tasks:
+
+---
+
+## ⚙️ Infrastructure Provisioning (Terraform)
+
+The Kubernetes cluster is automatically provisioned using **Terraform** with the SSH provider.
+
+### 🔄 Provisioning Workflow
+
 ```
 Terraform Apply
        │
@@ -129,6 +148,8 @@ Install K3s Agent
        ▼
 Worker joins cluster
 ```
+### ✅ Verify Cluster
+
 After provisioning:
 ```
 kubectl get nodes
@@ -139,9 +160,10 @@ NAME       STATUS   ROLES                  AGE
 master     Ready    control-plane,master   2m
 worker1    Ready    <none>                 1m
 ```
-CI/CD Pipeline
+
+## 🔄 CI/CD Pipeline
 The CI/CD pipeline is implemented using GitHub Actions.
-Pipeline workflow:
+### Pipeline workflow:
 ```
 Code Push
    │
@@ -169,7 +191,7 @@ Rolling Update
 ```
 
 
-Docker Image Build
+### 🐳 Docker Image Build
 Application container is built using:
 ```
 FROM node:18
@@ -188,8 +210,8 @@ CMD ["node", "server1.js"]
 ```
 
 
-Kubernetes Deployment
-Application runs with:
+### ☸️ Kubernetes Deployment
+Application runs with:  
 2 replicas
 NodePort service
 accessible from external network
@@ -204,19 +226,20 @@ nodePort: 30080
 ```
 
 
-Access the Application
+### 🌍 Access the Application
 After deployment:
 ```
 http://NODE_IP:30080
 ```
-The application will display:
-Hostname of the pod
+📊 Application Displays
+Pod hostname
 Node IP
 Runtime information
-This helps visualize load balancing across pods.
+
+➡️ This helps visualize load balancing across pods
 
 
-Automatic Rollback
+### 🔁 Automatic Rollback
 The CI/CD pipeline automatically rolls back if deployment fails.
 ```
 Rollout failure
@@ -230,7 +253,7 @@ Restore previous stable version
 This ensures high availability and safe deployments.
 
 
-How to Run
+### ▶️ How to Run
 1. Provision the cluster
 ```
 terraform init
@@ -251,20 +274,3 @@ Deploy to Kubernetes
 ```
 
 
-Key Features
-- Infrastructure as Code using Terraform
-- Automated Kubernetes cluster provisioning
-- CI/CD pipeline with GitHub Actions
-- Docker image build & push
-- Automated Kubernetes deployment
-- Automatic rollback mechanism
-- Load-balanced application with multiple replicas
-
-
-Learning Objectives
-- This project demonstrates:
-- Kubernetes cluster deployment
-- Infrastructure automation
-- CI/CD pipeline implementation
-- Containerized application deployment
-- DevOps workflow integration

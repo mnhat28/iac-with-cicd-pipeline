@@ -151,10 +151,10 @@ app.get('/', (req, res) => {
 
       <div class="card">
         <div class="left">
-          <h1>Hệ tính toán phân bố - NT533.Q13 - Huỳnh Văn Đặng</h1>
-          <div class="subtitle">Nhóm 5 - Trần Minh Nhật - Huỳnh Lâm Tuấn Phong</div>
-          <p class="desc">Đây là đồ án môn học của nhóm 5 - IaC & CI/CD
-          <br/>Chúng em thực hiện quá trình tự động BUILD, DEPLOY hoàn toàn tự động lên K3s Cluster được dựng bởi Terraform.</p>
+          <h1>🚀 MyApp - IaC & CI/CD with K3s Cluster</h1>
+          <div class="subtitle">https://github.com/mnhat28/iac-with-cicd-pipeline</div>
+          <p class="desc">This is an IaC & CI/CD project
+          <br/>We implemented a fully automated BUILD and DEPLOY process onto the K3s Cluster built by Terraform.</p>
 
           <div class="actions">
             <button class="btn" id="sayHi">Say Hi 👋</button>

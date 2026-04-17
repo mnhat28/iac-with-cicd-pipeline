@@ -5,12 +5,12 @@ variable "master_ip" {
 
 variable "worker_ip" {
   description = "Worker node IP"
-  default     = "192.168.2.166"
+  default     = "192.168.x.x"
 }
 
 variable "user" {
   description = "username to ssh"
-  default     = "mnhat"
+  default     = "username"
 }
 
 variable "ssh_private_key" {
