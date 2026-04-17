@@ -213,10 +213,7 @@ CMD ["node", "server1.js"]
 ### ☸️ Kubernetes Deployment
 Application runs with:  
 2 replicas  
-
-NodePort service  
-
-accessible from external network
+NodePort service accessible from external network  
 Deployment:
 ```
 replicas: 2
